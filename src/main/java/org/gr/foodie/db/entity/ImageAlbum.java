@@ -4,25 +4,27 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the image_album database table.
  * 
  */
 @Entity
-@Table(name="image_album")
-@NamedQuery(name="ImageAlbum.findAll", query="SELECT i FROM ImageAlbum i")
+@Table(name = "image_album")
+@NamedQueries({ 
+	@NamedQuery(name = "ImageAlbum.findAll", query = "SELECT i FROM ImageAlbum i"),
+	@NamedQuery(name = "ImageAlbum.findById", query = "SELECT i FROM ImageAlbum i WHERE i.iaId = :id")
+})
 public class ImageAlbum implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name="ia_id")
+	@Column(name = "ia_id")
 	private int iaId;
 
 	private String name;
 
-	//bi-directional many-to-one association to Image
-	@OneToMany(mappedBy="imageAlbum")
+	// bi-directional many-to-one association to Image
+	@OneToMany(mappedBy = "imageAlbum")
 	private List<Image> images;
 
 	public ImageAlbum() {

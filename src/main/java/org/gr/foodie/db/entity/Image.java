@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * The persistent class for the image database table.
  * 
@@ -18,29 +20,19 @@ public class Image implements Serializable{
 
 	@Id
 	@Column(name="i_id")
-	private int iId;
+	private String iId;
 	
-	@Column(name="ia_id")
-	private int iaId;
-	
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ia_id")
 	private ImageAlbum imageAlbum;
 
-	public int getiId() {
+	public String getiId() {
 		return iId;
 	}
 
-	public void setiId(int iId) {
+	public void setiId(String iId) {
 		this.iId = iId;
-	}
-
-	public int getIaId() {
-		return iaId;
-	}
-
-	public void setIaId(int iaId) {
-		this.iaId = iaId;
 	}
 
 	public ImageAlbum getImageAlbum() {
