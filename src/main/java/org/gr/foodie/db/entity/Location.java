@@ -2,6 +2,7 @@ package org.gr.foodie.db.entity;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.List;
 
 
@@ -22,22 +23,18 @@ public class Location implements Serializable {
 	@Column(name="a_id")
 	private int aId;
 
-	@Column(name="address")
-	private String address;
+	private Object address;
 
-	@Column(name="city")
-	private String city;
+	private Object city;
 
-	@Column(name="ia_id")
-	private int iaId;
+	@Column(name="close_time")
+	private Timestamp closeTime;
 
-	@Column(name="loc")
 	private byte[] loc;
 
-	@Column(name="name")
-	private String name;
+	@Column(name="open_time")
+	private Timestamp openTime;
 
-	@Column(name="tel")
 	private String tel;
 
 	//bi-directional many-to-one association to FoodOnLocation
@@ -63,28 +60,28 @@ public class Location implements Serializable {
 		this.aId = aId;
 	}
 
-	public String getAddress() {
+	public Object getAddress() {
 		return this.address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(Object address) {
 		this.address = address;
 	}
 
-	public String getCity() {
+	public Object getCity() {
 		return this.city;
 	}
 
-	public void setCity(String city) {
+	public void setCity(Object city) {
 		this.city = city;
 	}
 
-	public int getIaId() {
-		return this.iaId;
+	public Timestamp getCloseTime() {
+		return this.closeTime;
 	}
 
-	public void setIaId(int iaId) {
-		this.iaId = iaId;
+	public void setCloseTime(Timestamp closeTime) {
+		this.closeTime = closeTime;
 	}
 
 	public byte[] getLoc() {
@@ -95,12 +92,12 @@ public class Location implements Serializable {
 		this.loc = loc;
 	}
 
-	public String getName() {
-		return this.name;
+	public Timestamp getOpenTime() {
+		return this.openTime;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setOpenTime(Timestamp openTime) {
+		this.openTime = openTime;
 	}
 
 	public String getTel() {

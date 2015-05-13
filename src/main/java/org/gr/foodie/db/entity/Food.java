@@ -1,9 +1,7 @@
 package org.gr.foodie.db.entity;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import java.util.List;
 
 
@@ -13,11 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="food")
-@NamedQueries({
-	@NamedQuery(name="Food.findAll", query="SELECT f FROM Food f"),
-	@NamedQuery(name="Food.findById", query="SELECT f FROM Food f WHERE f.fId = :fId"),
-	@NamedQuery(name="Food.findByName", query="SELECT f FROM Food f WHERE trim(f.name) like :name")
-})
+@NamedQuery(name="Food.findAll", query="SELECT f FROM Food f")
 public class Food implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -28,15 +22,11 @@ public class Food implements Serializable {
 	@Column(name="a_id")
 	private int aId;
 
-	@Column(name="description")
-	private String description;
+	@Column(name="ingredient")
+	private String ingredient;
 
-	@Column(name="ia_id")
-	private int iaId;
-
-	@Column(name="name")
-	private String name;
-	
+	@Column(name="ingredient")
+	private String type;
 
 	//bi-directional many-to-one association to FoodOnLocation
 	@OneToMany(mappedBy="food")
@@ -61,28 +51,20 @@ public class Food implements Serializable {
 		this.aId = aId;
 	}
 
-	public String getDescription() {
-		return this.description;
+	public String getIngredient() {
+		return this.ingredient;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setIngredient(String ingredient) {
+		this.ingredient = ingredient;
 	}
 
-	public int getIaId() {
-		return this.iaId;
+	public String getType() {
+		return this.type;
 	}
 
-	public void setIaId(int iaId) {
-		this.iaId = iaId;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public List<FoodOnLocation> getFoodOnLocations() {
@@ -105,6 +87,6 @@ public class Food implements Serializable {
 		foodOnLocation.setFood(null);
 
 		return foodOnLocation;
-	}	
+	}
 
 }

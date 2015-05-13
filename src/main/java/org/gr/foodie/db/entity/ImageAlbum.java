@@ -12,16 +12,14 @@ import java.util.List;
 @Table(name = "image_album")
 @NamedQueries({ 
 	@NamedQuery(name = "ImageAlbum.findAll", query = "SELECT i FROM ImageAlbum i"),
-	@NamedQuery(name = "ImageAlbum.findById", query = "SELECT i FROM ImageAlbum i WHERE i.iaId = :id")
+	@NamedQuery(name = "ImageAlbum.findById", query = "SELECT i FROM ImageAlbum i WHERE i.aId = :id")
 })
 public class ImageAlbum implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@Column(name = "ia_id")
-	private int iaId;
-
-	private String name;
+	@Column(name = "a_id")
+	private int aId;
 
 	// bi-directional many-to-one association to Image
 	@OneToMany(mappedBy = "imageAlbum")
@@ -31,19 +29,11 @@ public class ImageAlbum implements Serializable {
 	}
 
 	public int getIaId() {
-		return this.iaId;
+		return this.aId;
 	}
 
 	public void setIaId(int iaId) {
-		this.iaId = iaId;
-	}
-
-	public String getName() {
-		return this.name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
+		this.aId = iaId;
 	}
 
 	public List<Image> getImages() {
