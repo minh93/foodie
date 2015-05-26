@@ -12,7 +12,7 @@ import java.util.List;
 @Table(name = "image_album")
 @NamedQueries({ 
 	@NamedQuery(name = "ImageAlbum.findAll", query = "SELECT i FROM ImageAlbum i"),
-	@NamedQuery(name = "ImageAlbum.findById", query = "SELECT i FROM ImageAlbum i WHERE i.aId = :id")
+	@NamedQuery(name = "ImageAlbum.findByAId", query = "SELECT i FROM ImageAlbum i WHERE i.aId = :aId")
 })
 public class ImageAlbum implements Serializable {
 	private static final long serialVersionUID = 1L;

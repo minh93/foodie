@@ -72,8 +72,9 @@ create table image_album(
 )
 
 create table image(
-"i_id" NVARCHAR(64) PRIMARY KEY, -- Duong dan den file anh tren server
-"ia_id" INT
+"path" NVARCHAR(1024) , -- Duong dan den file anh tren server
+"ia_id" INT,
+"id" INT IDENTITY PRIMARY KEY
 )
 
 -- Ref key
@@ -109,7 +110,7 @@ create fulltext catalog abstract_description;
 go
 create fulltext index on abstract(
 	"s_description" Language 1066)
-	key index PK__abstract__566AFA9ABFEB7D70
+	key index PK__abstract__566AFA9AAA693E50
 		on abstract_description;
 
 SELECT * 
@@ -117,3 +118,4 @@ FROM food
 WHERE CONTAINS("description", 'Ngon ');
 
 select * from sys.key_constraints
+

@@ -17,22 +17,25 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 })
 public class Image implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	
+	@Column(name="path")
+	private String path;
+	
 	@Id
-	@Column(name="i_id")
-	private String iId;
+	@Column(name="id")
+	private int id;
 	
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="ia_id")
 	private ImageAlbum imageAlbum;
 
-	public String getiId() {
-		return iId;
+	public String getPath() {
+		return path;
 	}
 
-	public void setiId(String iId) {
-		this.iId = iId;
+	public void setPath(String iId) {
+		this.path = iId;
 	}
 
 	public ImageAlbum getImageAlbum() {
@@ -42,4 +45,14 @@ public class Image implements Serializable{
 	public void setImageAlbum(ImageAlbum imageAlbum) {
 		this.imageAlbum = imageAlbum;
 	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 }

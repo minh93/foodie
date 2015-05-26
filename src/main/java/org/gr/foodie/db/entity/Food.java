@@ -1,7 +1,9 @@
 package org.gr.foodie.db.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -11,7 +13,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="food")
-@NamedQuery(name="Food.findAll", query="SELECT f FROM Food f")
+@NamedQueries({
+	@NamedQuery(name="Food.findAll", query="SELECT f FROM Food f"),
+	@NamedQuery(name="Food.findByaId", query="SELECT f FROM Food f WHERE f.aId = :aId")
+})
 public class Food implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -25,7 +30,7 @@ public class Food implements Serializable {
 	@Column(name="ingredient")
 	private String ingredient;
 
-	@Column(name="ingredient")
+	@Column(name="type")
 	private String type;
 
 	//bi-directional many-to-one association to FoodOnLocation

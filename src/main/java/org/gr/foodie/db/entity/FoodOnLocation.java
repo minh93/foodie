@@ -1,7 +1,10 @@
 package org.gr.foodie.db.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 /**
@@ -18,10 +21,11 @@ public class FoodOnLocation implements Serializable {
 	@Column(name="fl_id")
 	private int flId;
 
-	@Lob
-	private String price;
+	@Column(name="price")
+	private double price;
 
 	//bi-directional many-to-one association to Food
+	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name="f_id")
 	private Food food;
@@ -42,11 +46,11 @@ public class FoodOnLocation implements Serializable {
 		this.flId = flId;
 	}
 
-	public String getPrice() {
+	public double getPrice() {
 		return this.price;
 	}
 
-	public void setPrice(String price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 

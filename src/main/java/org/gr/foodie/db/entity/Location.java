@@ -23,18 +23,22 @@ public class Location implements Serializable {
 	@Column(name="a_id")
 	private int aId;
 
-	private Object address;
+	@Column(name="address")
+	private String address;
 
-	private Object city;
+	@Column(name="city")
+	private String city;
 
 	@Column(name="close_time")
 	private Timestamp closeTime;
 
+	@Column(name="loc")
 	private byte[] loc;
 
 	@Column(name="open_time")
 	private Timestamp openTime;
 
+	@Column(name="tel")
 	private String tel;
 
 	//bi-directional many-to-one association to FoodOnLocation
@@ -60,19 +64,19 @@ public class Location implements Serializable {
 		this.aId = aId;
 	}
 
-	public Object getAddress() {
+	public String getAddress() {
 		return this.address;
 	}
 
-	public void setAddress(Object address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public Object getCity() {
+	public String getCity() {
 		return this.city;
 	}
 
-	public void setCity(Object city) {
+	public void setCity(String city) {
 		this.city = city;
 	}
 

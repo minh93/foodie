@@ -11,7 +11,8 @@ import java.util.List;
 @Entity
 @Table(name="abstract")
 @NamedQueries({
-	@NamedQuery(name="AbstractTbl.findAll", query="SELECT a FROM AbstractTbl a")	
+	@NamedQuery(name="AbstractTbl.findAll", query="SELECT a FROM AbstractTbl a"),
+	@NamedQuery(name="AbstractTbl.findById", query="SELECT a FROM AbstractTbl a WHERE a.aId = :aId")
 })
 @NamedNativeQuery(name="AbstractTbl.find", query="SELECT * FROM abstract WHERE CONTAINS(\"s_description\", ?)", resultClass=AbstractTbl.class)
 public class AbstractTbl {
