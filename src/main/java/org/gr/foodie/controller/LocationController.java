@@ -37,9 +37,7 @@ public class LocationController {
 		EntityManager em = factory.createEntityManager();
 
 		em.getTransaction().begin();
-
-		// Get food by aId
-		ArrayList<Eatery> results = new ArrayList<Eatery>();
+		
 		// Find food by aId
 		Query q = em.createNamedQuery("Location.findByaId", Location.class);
 		q.setParameter("aId", id);
@@ -77,6 +75,7 @@ public class LocationController {
 				} catch (Exception e) {
 
 				}
+				lod.getFol().add(fod);
 			}
 
 			try {
