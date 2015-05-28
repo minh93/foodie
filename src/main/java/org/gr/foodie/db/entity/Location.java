@@ -1,7 +1,9 @@
 package org.gr.foodie.db.entity;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -12,7 +14,10 @@ import java.util.List;
  */
 @Entity
 @Table(name="location")
-@NamedQuery(name="Location.findAll", query="SELECT l FROM Location l")
+@NamedQueries({
+	@NamedQuery(name="Location.findAll", query="SELECT l FROM Location l"),
+	@NamedQuery(name="Location.findByaId", query="SELECT l FROM Location l WHERE l.aId = :aId")
+})
 public class Location implements Serializable {
 	private static final long serialVersionUID = 1L;
 

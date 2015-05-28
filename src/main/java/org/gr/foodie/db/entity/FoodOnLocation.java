@@ -13,7 +13,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  */
 @Entity
 @Table(name="food_on_location")
-@NamedQuery(name="FoodOnLocation.findAll", query="SELECT f FROM FoodOnLocation f")
+@NamedQueries({
+	@NamedQuery(name="FoodOnLocation.findAll", query="SELECT f FROM FoodOnLocation f"),
+	@NamedQuery(name="FoodOnLocation.findById", query="SELECT f FROM FoodOnLocation f WHERE f.flId = :id")
+})
 public class FoodOnLocation implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -28,8 +28,6 @@ public class AbstractController {
 
 		Query q = em.createNamedQuery("AbstractTbl.find", AbstractTbl.class);
 		
-		System.out.println("" + q.toString());
-		
 		q.setParameter(1, query);
 		if (q.getResultList() != null) {
 			return q.getResultList();

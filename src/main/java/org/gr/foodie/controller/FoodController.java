@@ -16,6 +16,7 @@ import org.gr.foodie.db.entity.Image;
 import org.gr.foodie.db.entity.ImageAlbum;
 import org.gr.foodie.program.entity.Eatery;
 import org.gr.foodie.program.entity.FooOnLocation;
+import org.gr.foodie.program.entity.FooOnLocationDetails;
 import org.gr.foodie.program.entity.FoodDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -72,9 +73,9 @@ public class FoodController {
 	@RequestMapping("/food/details/id")
 	public FoodDetails getFood(
 			@RequestParam(value = "id", defaultValue = "0") int id) {
-		
+
 		FoodDetails fdl = new FoodDetails();
-		
+
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("demojpa");
 
@@ -92,32 +93,78 @@ public class FoodController {
 				AbstractTbl.class);
 		q2.setParameter("aId", id);
 		// Find list image for food by abstract id
-		Query q3 = em.createNamedQuery("ImageAlbum.findByAId", ImageAlbum.class);
+		Query q3 = em
+				.createNamedQuery("ImageAlbum.findByAId", ImageAlbum.class);
 		q3.setParameter("aId", id);
-		
-		AbstractTbl abTbl = (AbstractTbl) q2.getSingleResult();
 
-		if(abTbl != null){			
-			Food f = (Food) q.getSingleResult();			
+		try {
+			AbstractTbl abTbl = (AbstractTbl) q2.getSingleResult();
+			Food f = (Food) q.getSingleResult();
 			fdl.setaId(abTbl.getaId());
 			fdl.setName(abTbl.getName());
 			fdl.setDescription(abTbl.getDescription());
-			fdl.setFol(new ArrayList<FooOnLocation>());;
+			fdl.setFol(new ArrayList<FooOnLocation>());
+			;
 			for (FoodOnLocation item : f.getFoodOnLocations()) {
-				fdl.getFol().add(new FooOnLocation(item.getFlId(), 
-						item.getLocation().getLId(), 
-						item.getPrice()));
+				fdl.getFol().add(
+						new FooOnLocation(item.getFlId(), item.getLocation()
+								.getLId(), item.getPrice(), item.getLocation()
+								.getAddress()));
 			}
-			
-			if(q3.getSingleResult() != null){
-				//Set images for food detail
+
+			try {
 				ImageAlbum imgs = (ImageAlbum) q3.getSingleResult();
+				// Set images for food detail
 				fdl.setImages(new ArrayList<String>());
 				for (Image i : imgs.getImages()) {
-					fdl.getImages().add(i.getPath());					
+					fdl.getImages().add(i.getPath());
 				}
-			}			
-		}		
+			}catch(Exception e){
+				
+			}
+		} catch (Exception e) {
+
+		}
 		return fdl;
+	}
+
+	// Get food on special restaurant by fl_id
+	@RequestMapping("/foodonlocation/details/id")
+	public FooOnLocationDetails getFoodOnLocationDetails(
+			@RequestParam(value = "id", defaultValue = "0") int id) {
+
+		FooOnLocationDetails fold = new FooOnLocationDetails();
+
+		EntityManagerFactory factory = Persistence
+				.createEntityManagerFactory("demojpa");
+		EntityManager em = factory.createEntityManager();
+
+		em.getTransaction().begin();
+		// Get details food on location by fl_id
+		Query q = em.createNamedQuery("FoodOnLocation.findById",
+				FoodOnLocation.class);
+		q.setParameter("id", id);
+		Query q2 = em.createNamedQuery("AbstractTbl.findById",
+				AbstractTbl.class);
+		try {
+			FoodOnLocation fol = (FoodOnLocation) q.getSingleResult();
+			fold.setFl_id(fol.getFlId());
+			fold.setPrice(fol.getPrice());
+			fold.setAddress(fol.getLocation().getAddress());
+
+			// Find abstract table get details of food
+			q2.setParameter("aId", fol.getFood().getAId());
+			AbstractTbl abTbl = (AbstractTbl) q2.getSingleResult();
+
+			fold.setFoodName(abTbl.getName());
+			fold.setDescription(abTbl.getDescription());
+			fold.setCreateBy(abTbl.getUserID());
+			fold.setLocation_id(fol.getLocation().getAId());
+			fold.setThumbnail(abTbl.getLinkToThumbnail());
+		} catch (Exception e) {
+
+		}
+
+		return fold;
 	}
 }
